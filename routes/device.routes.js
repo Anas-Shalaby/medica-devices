@@ -9,6 +9,7 @@ const deviceController = new DeviceController();
 const deviceValidationRules = [
   check("name").not().isEmpty().withMessage("Name is required"),
   check("manufacturer").not().isEmpty().withMessage("Manufacturer is required"),
+  check("model").not().isEmpty().withMessage("Model is required"),
   check("serialNumber")
     .not()
     .isEmpty()

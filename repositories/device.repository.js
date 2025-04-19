@@ -17,8 +17,8 @@ class DeviceRepository {
       };
 
       const [devices, total] = await Promise.all([
-        Device.find(query, null, queryOptions).lean(),
-        Device.countDocuments(query),
+        Device.find({}).lean(),
+        Device.countDocuments({}),
       ]);
 
       return {
@@ -50,7 +50,6 @@ class DeviceRepository {
 
   async create(deviceData) {
     try {
-      console.log(deviceData);
       const device = new Device(deviceData);
       await device.save();
       return device.toObject();
