@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const deviceSchema = new Schema({
   name: { type: String, required: true },
+  supplier: { type: Schema.Types.ObjectId, ref: "User", required: true },
   manufacturer: { type: String, required: true },
   model: { type: String, required: true },
   serialNumber: { type: String, required: true, unique: true },
