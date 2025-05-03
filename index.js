@@ -6,7 +6,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 dotenv.config();
 const app = express();
-
+const port = process.env.PORT || 4000;
 app.use(cors());
 app.use(express.json()); // middleware to parse json data
 
@@ -14,6 +14,6 @@ connectDB();
 app.use("/api/medical_devices", medicalDevicesRoute);
 app.use("/api/auth", authRoutes);
 
-app.listen(4000, () => {
+app.listen(port, () => {
   console.log("server is running on port 4000");
 });
