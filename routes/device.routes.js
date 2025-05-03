@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const DeviceController = require("../controllers/device.controller");
 const { check } = require("express-validator");
+const { protect, authorize } = require("../middleware/auth.middleware");
 
 const deviceController = new DeviceController();
 
@@ -28,13 +29,16 @@ router.get("/:id", deviceController.getDevice.bind(deviceController));
 router.post(
   "/",
   deviceValidationRules,
+  protect,
+  authorize("supplier", "admin"),
   deviceController.createDevice.bind(deviceController)
 );
-router.put(
+router.put("/:id", deviceController.updateDevice.bind(deviceController));
+router.delete(
   "/:id",
-  deviceValidationRules,
-  deviceController.updateDevice.bind(deviceController)
+  protect,
+  authorize("admin"),
+  deviceController.deleteDevice.bind(deviceController)
 );
-router.delete("/:id", deviceController.deleteDevice.bind(deviceController));
 
 module.exports = router;

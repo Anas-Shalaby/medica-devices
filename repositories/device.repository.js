@@ -48,8 +48,9 @@ class DeviceRepository {
     }
   }
 
-  async create(deviceData) {
+  async create(deviceData, userData) {
     try {
+      deviceData.supplier = userData._id;
       const device = new Device(deviceData);
       await device.save();
       return device.toObject();

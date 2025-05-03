@@ -10,7 +10,7 @@ class AuthServices {
       throw new Error("User already exists");
     }
 
-    await this.userRepository.create(user);
+    return await this.userRepository.create(user);
   }
 
   async login({ email, password }) {

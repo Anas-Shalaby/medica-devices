@@ -34,7 +34,10 @@ class DeviceController {
     }
 
     try {
-      const newDevice = await this.deviceService.createDevice(req.body);
+      const newDevice = await this.deviceService.createDevice(
+        req.body,
+        req.user
+      );
       res.status(201).json(newDevice);
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -42,11 +45,6 @@ class DeviceController {
   }
 
   async updateDevice(req, res) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
     try {
       const updatedDevice = await this.deviceService.updateDevice(
         req.params.id,
@@ -55,7 +53,7 @@ class DeviceController {
       if (!updatedDevice) {
         return res.status(404).json({ message: "Device not found" });
       }
-      res.json(updatedDevice);
+      res.status(200).json(updatedDevice);
     } catch (error) {
       res.status(400).json({ message: error.message });
     }

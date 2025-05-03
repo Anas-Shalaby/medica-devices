@@ -16,9 +16,9 @@ class DeviceService {
     return device;
   }
 
-  async createDevice(deviceData) {
+  async createDevice(deviceData, userData) {
     // Invalidate relevant cache
-    return this.deviceRepository.create(deviceData);
+    return this.deviceRepository.create(deviceData, userData);
   }
 
   async updateDevice(id, deviceData) {
