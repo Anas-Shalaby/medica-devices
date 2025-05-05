@@ -29,6 +29,78 @@ const userSchema = new mongoose.Schema({
     enum: ["user", "supplier", "admin"],
     default: "user",
   },
+  verificationStatus: {
+    type: String,
+    enum: ["unverified", "pending", "verified"],
+    default: "unverified",
+  },
+  verificationDocuments: [
+    {
+      documentType: String,
+      documentUrl: String,
+      uploadDate: Date,
+      verificationDate: Date,
+      status: {
+        type: String,
+        enum: ["pending", "approved", "rejected"],
+        default: "pending",
+      },
+    },
+  ],
+
+  hospitalInfo: {
+    name: String,
+    type: {
+      type: String,
+      enum: ["hospital", "clinic", "private practice", "other"],
+    },
+    address: {
+      street: String,
+      city: String,
+      state: String,
+      zipCode: String,
+      country: String,
+    },
+    licenseNumber: String,
+    specialties: [String],
+    size: String, // e.g., 'small', 'medium', 'large'
+  },
+
+  companyInfo: {
+    name: String,
+    registrationNumber: String,
+    taxId: String,
+    foundedYear: Number,
+    website: String,
+    address: {
+      headquarters: {
+        street: String,
+        city: String,
+        state: String,
+        zipCode: String,
+        country: String,
+      },
+      branches: [
+        {
+          street: String,
+          city: String,
+          state: String,
+          zipCode: String,
+          country: String,
+        },
+      ],
+    },
+    certifications: [
+      {
+        name: String,
+        issuingBody: String,
+        issueDate: Date,
+        expiryDate: Date,
+        documentUrl: String,
+      },
+    ],
+  },
+
   lastLogout: {
     type: Date,
     default: null,
