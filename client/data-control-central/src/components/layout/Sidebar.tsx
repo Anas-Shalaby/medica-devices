@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import React from "react";
 import { NavLink } from "react-router-dom";
-=======
-import React, { useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
->>>>>>> 1bc800f (init)
 import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
@@ -56,7 +51,6 @@ const NavItem = ({
   };
 
   return (
-<<<<<<< HEAD
     <NavLink
       to={to}
       className={({ isActive }) =>
@@ -66,15 +60,6 @@ const NavItem = ({
           !isOpen && "justify-center"
         )
       }
-=======
-    <button
-      onClick={handleClick}
-      className={cn(
-        "flex items-center p-3 mb-1 rounded-lg transition-colors w-full text-left",
-        isActive ? "bg-primary text-primary-foreground" : "hover:bg-gray-200",
-        !isOpen && "justify-center"
-      )}
->>>>>>> 1bc800f (init)
     >
       <Icon className={cn("h-5 w-5", isOpen && "mr-3")} />
       {isOpen && <span>{label}</span>}
