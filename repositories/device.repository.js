@@ -17,7 +17,7 @@ class DeviceRepository {
       };
 
       const [devices, total] = await Promise.all([
-        Device.find({}).lean(),
+        Device.find({}).populate("supplier", "name").lean(),
         Device.countDocuments({}),
       ]);
 
