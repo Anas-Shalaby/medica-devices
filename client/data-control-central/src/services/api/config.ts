@@ -1,8 +1,4 @@
 // src/services/api/config.ts
-<<<<<<< HEAD
-=======
-
->>>>>>> 1bc800f (init)
 export const API_BASE_URL = "https://almotqenapi.onrender.com/api";
 
 export const API_ENDPOINTS = {
@@ -26,10 +22,9 @@ export const API_ENDPOINTS = {
   },
   // User endpoints
   USERS: {
-    GET_ALL: `${API_BASE_URL}/auth/`,
+    GET_ALL: `${API_BASE_URL}/auth`,
     GET_ONE: (id: string) => `${API_BASE_URL}/auth/${id}`,
-    LOGIN: () => `${API_BASE_URL}/auth/login`,
-    CREATE: `${API_BASE_URL}/auth/register`,
+    CREATE: `${API_BASE_URL}/auth`,
     UPDATE: (id: string) => `${API_BASE_URL}/auth/${id}`,
     DELETE: (id: string) => `${API_BASE_URL}/auth/${id}`,
   },
@@ -38,6 +33,13 @@ export const API_ENDPOINTS = {
     GET_ALL: `${API_BASE_URL}/orders`,
     GET_ONE: (id: string) => `${API_BASE_URL}/orders/${id}`,
     CREATE: `${API_BASE_URL}/orders`,
-    UPDATE_STATUS: (id: string) => `${API_BASE_URL}/orders/${id}/status`,
+    UPDATE: (id: string) => `${API_BASE_URL}/orders/${id}`,
+    DELETE: (id: string) => `${API_BASE_URL}/orders/${id}`,
+  },
+  // Stats endpoints
+  STATS: {
+    GET_DASHBOARD: `${API_BASE_URL}/stats/dashboard`,
+    GET_DEVICES: `${API_BASE_URL}/stats/devices`,
+    GET_ORDERS: `${API_BASE_URL}/stats/orders`,
   },
 };
