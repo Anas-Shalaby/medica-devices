@@ -25,9 +25,28 @@ class UserRepository {
       throw new Error(`Repository error: ${error.message}`);
     }
   }
+  async update(id, user) {
+    try {
+      const updatedUser = await User.findByIdAndUpdate(id, user, {
+        new: true,
+      });
+      return updatedUser;
+    } catch (error) {
+      throw new Error(`Repository error: ${error.message}`);
+    }
+  }
   async findById(id) {
     try {
       const user = await User.findById(id);
+      return user;
+    } catch (error) {
+      throw new Error(`Repository error: ${error.message}`);
+    }
+  }
+
+  async delete(id) {
+    try {
+      const user = await User.findByIdAndDelete(id);
       return user;
     } catch (error) {
       throw new Error(`Repository error: ${error.message}`);

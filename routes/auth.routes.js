@@ -43,12 +43,30 @@ router.post(
   authController.register.bind(authController)
 );
 
+router.delete(
+  "/:id",
+  protect,
+  authorize("admin"),
+  authController.deleteUser.bind(authController)
+);
+
 router.post(
   "/login",
   loginValidation,
   authController.login.bind(authController)
 );
-
+router.get(
+  "/:id",
+  protect,
+  authorize("admin"),
+  authController.getUserById.bind(authController)
+);
+router.put(
+  "/:id",
+  protect,
+  authorize("admin"),
+  authController.updateUser.bind(authController)
+);
 router.get("/me", protect, authController.getMe.bind(authController));
 router.get("/logout", protect, authController.logout.bind(authController));
 router.get(

@@ -34,6 +34,29 @@ class AuthServices {
     const users = await this.userRepository.findAll();
     return users;
   }
+  async updateUser(id, user) {
+    const existingUser = await this.userRepository.findById(id);
+    if (!existingUser) {
+      throw new Error("User not found");
+    }
+    const updatedUser = await this.userRepository.update(id, user);
+    return updatedUser;
+  }
+  async getUserById(id) {
+    const user = await this.userRepository.findById(id);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    return user;
+  }
+  async deleteUser(id) {
+    const user = await this.userRepository.findById(id);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    await this.userRepository.delete(id);
+    return user;
+  }
 
   async getMe(id) {
     const user = await this.userRepository.findById(id);
