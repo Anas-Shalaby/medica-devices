@@ -18,6 +18,19 @@ import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
+import { AxiosError } from "axios";
+
+interface ApiErrorResponse {
+  message: string;
+}
+
+interface ApiError {
+  response?: {
+    data: ApiErrorResponse;
+  };
+}
+
+type FormValue = string | number | boolean | Record<string, unknown>;
 
 interface DeviceFormData {
   name: string;
@@ -107,39 +120,52 @@ const CreateDevice = () => {
 
   const createDeviceMutation = useMutation({
     mutationFn: deviceService.createDevice,
-    onSuccess: (data) => {
-      toast.success("Device created successfully");
-      navigate(`/devices/${data.data._id}`);
+    onSuccess: (response) => {
+      if (response) {
+        toast.success("Device created successfully");
+        navigate(`/devices/${response?._id}`);
+      } else {
+        toast.error("Failed to create device: Invalid response from server");
+      }
     },
-    onError: (error) => {
-      toast.error(error.message || "Failed to create device");
+    onError: (error: AxiosError<ApiErrorResponse>) => {
+      const errorMessage =
+        error.response?.data?.message || "Failed to create device";
+      toast.error(errorMessage);
+      console.error("Device creation error:", error);
     },
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    createDeviceMutation.mutate(formData);
+    try {
+      await createDeviceMutation.mutateAsync(formData);
+    } catch (error) {
+      // Error is already handled in onError
+      console.error("Error in handleSubmit:", error);
+    }
   };
 
   const handleInputChange = (
-    field: string,
-    value: string | number | boolean,
+    field: keyof DeviceFormData,
+    value: FormValue,
     nestedField?: string
   ) => {
-    if (nestedField) {
-      setFormData((prev) => ({
-        ...prev,
-        [field]: {
-          ...prev[field as keyof DeviceFormData],
-          [nestedField]: value,
-        },
-      }));
-    } else {
-      setFormData((prev) => ({
+    setFormData((prev) => {
+      if (nestedField) {
+        return {
+          ...prev,
+          [field]: {
+            ...(prev[field] as Record<string, unknown>),
+            [nestedField]: value,
+          },
+        };
+      }
+      return {
         ...prev,
         [field]: value,
-      }));
-    }
+      };
+    });
   };
 
   return (

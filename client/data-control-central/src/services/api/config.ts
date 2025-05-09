@@ -1,5 +1,5 @@
 // src/services/api/config.ts
-export const API_BASE_URL = "https://almotqenapi.onrender.com/api";
+export const API_BASE_URL = "http://localhost:4000/api";
 
 export const API_ENDPOINTS = {
   // Auth endpoints
@@ -24,7 +24,7 @@ export const API_ENDPOINTS = {
   USERS: {
     GET_ALL: `${API_BASE_URL}/auth`,
     GET_ONE: (id: string) => `${API_BASE_URL}/auth/${id}`,
-    CREATE: `${API_BASE_URL}/auth`,
+    CREATE: `${API_BASE_URL}/auth/register`,
     UPDATE: (id: string) => `${API_BASE_URL}/auth/${id}`,
     DELETE: (id: string) => `${API_BASE_URL}/auth/${id}`,
   },

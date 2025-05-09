@@ -15,6 +15,10 @@ import Orders from "./pages/Orders";
 import OrderDetails from "./pages/OrdersDetails";
 import CreateOrder from "./pages/CreateOrder";
 import CreateDevice from "./pages/CreateDevice";
+import DeviceSettings from "./pages/DeviceSettings";
+import DeviceDetails from "./pages/DeviceDetails";
+import CreateUser from "./pages/CreateUser";
+import EditUser from "./pages/EditUser";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,8 +38,12 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/users" element={<Users />} />
+          <Route path="/users/new" element={<CreateUser />} />
+          <Route path="/users/:id" element={<EditUser />} />
           <Route path="/devices" element={<Devices />} />
           <Route path="/devices/create" element={<CreateDevice />} />
+          <Route path="/devices/:id" element={<DeviceDetails />} />
+          <Route path="/devices/settings" element={<DeviceSettings />} />
           <Route path="/suppliers" element={<Suppliers />} />
           <Route path="/login" element={<Login />} />
           <Route path="/orders" element={<Orders />} />

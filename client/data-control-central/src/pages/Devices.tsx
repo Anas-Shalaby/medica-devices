@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { useApi } from "@/hooks/useApi";
 import { deviceService } from "@/services/services";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Plus, Settings, Eye } from "lucide-react";
+import { toast } from "sonner";
 
 const Devices = () => {
   const { data: devices, isLoading } = useQuery({
@@ -31,7 +32,7 @@ const Devices = () => {
 
     {
       header: "Supplier",
-      accessor: (row: any) => row.supplier.name,
+      accessor: (row: any) => row.supplier?.name,
     },
     {
       header: "Type",
@@ -83,6 +84,20 @@ const Devices = () => {
         </span>
       ),
     },
+    {
+      header: "Actions",
+      accessor: (row: any) => (
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => navigate(`/devices/${row._id}`)}
+          className="flex items-center"
+        >
+          <Eye className="mr-2 h-4 w-4" />
+          View
+        </Button>
+      ),
+    },
   ];
   return (
     <DashboardLayout>
@@ -90,9 +105,16 @@ const Devices = () => {
         <h1 className="text-2xl font-bold mb-1">Devices</h1>
         <p className="text-muted-foreground">Monitor and manage devices</p>
       </div>
-      <div className="mb-10 flex justify-end">
+      <div className="mb-10 flex justify-end gap-4">
+        <Button
+          variant="outline"
+          onClick={() => toast.warning("This feature is under developing.")}
+        >
+          <Settings className="mr-2 h-4 w-4" />
+          Device Settings
+        </Button>
         <Button onClick={() => navigate("/devices/create")}>
-          <Plus />
+          <Plus className="mr-2 h-4 w-4" />
           Create New Device
         </Button>
       </div>

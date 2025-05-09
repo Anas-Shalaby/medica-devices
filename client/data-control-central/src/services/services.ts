@@ -8,6 +8,17 @@ export const userService = {
     apiClient.get<ApiResponse<User[]>>(API_ENDPOINTS.USERS.GET_ALL),
   login: (loginData: Partial<User>) =>
     apiClient.post<ApiResponse<User>>(API_ENDPOINTS.AUTH.LOGIN, loginData),
+  deleteUser: (userId: string) =>
+    apiClient.delete<ApiResponse<void>>(API_ENDPOINTS.USERS.DELETE(userId)),
+  createUser: (userData: Partial<User>) =>
+    apiClient.post<ApiResponse<User>>(API_ENDPOINTS.USERS.CREATE, userData),
+  getUserById: (userId: string) =>
+    apiClient.get<ApiResponse<User>>(API_ENDPOINTS.USERS.GET_ONE(userId)),
+  updateUser: (userId: string, userData: Partial<User>) =>
+    apiClient.put<ApiResponse<User>>(
+      API_ENDPOINTS.USERS.UPDATE(userId),
+      userData
+    ),
 };
 
 export const deviceService = {

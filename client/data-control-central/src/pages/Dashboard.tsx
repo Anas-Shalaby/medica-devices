@@ -48,7 +48,7 @@ const Dashboard = () => {
     ).length;
 
     // Device stats
-    const totalDevices = devices?.devices.length;
+    const totalDevices = devices?.devices?.length;
     const deviceCategories = {
       diagnostic: devices?.devices.filter(
         (device) => device.type === "diagnostic"

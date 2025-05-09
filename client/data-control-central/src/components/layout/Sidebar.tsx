@@ -65,7 +65,14 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const sidebar = document.getElementById("sidebar");
-      if (sidebar && !sidebar.contains(event.target as Node)) {
+      const target = event.target as HTMLElement;
+
+      // Check if the click is outside the sidebar and not on any interactive elements
+      if (
+        sidebar &&
+        !sidebar.contains(target) &&
+        !target.closest("button, input, select, textarea")
+      ) {
         onClose();
       }
     };
@@ -84,8 +91,9 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
       {/* Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          className="fixed inset-0 bg-black/50 z-[30] lg:hidden"
           onClick={onClose}
+          aria-hidden="true"
         />
       )}
 
@@ -93,15 +101,13 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
       <aside
         id="sidebar"
         className={cn(
-          "fixed top-0 left-0 h-full w-64 bg-white border-r border-gray-200 z-50 transition-transform duration-300 ease-in-out",
-          isOpen ? "translate-x-0" : "-translate-x-full",
-          "lg:translate-x-0"
+          "fixed top-0 left-0 h-full w-64 bg-white border-r border-gray-200 z-[31] transition-transform duration-300 ease-in-out",
+          isOpen ? "translate-x-0" : "-translate-x-full"
         )}
+        role="navigation"
       >
         <div className="flex items-center justify-between p-4 border-b">
-          <h1 className="text-xl font-bold text-dashboard-blue">
-            Data Control
-          </h1>
+          <h1 className="text-xl font-bold text-dashboard-blue">Admin panel</h1>
           <Button
             variant="ghost"
             size="icon"
@@ -114,7 +120,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
 
         <nav className="p-4 space-y-2">
           <NavItem
-            to="/dashboard"
+            to="/"
             icon={<LayoutDashboard className="h-5 w-5" />}
             label="Dashboard"
             onNavigate={onClose}
